@@ -81,7 +81,7 @@
 </div>
 
 <!--Hidden Iframe to sync localstorge to cookies-->
-<iframe src="https://ialdama.dev/empty-page" hidden></iframe>
+<iframe src="https://ialdama.dev/empty-page" style="display:none;"></iframe>
 
 <div class="cookies-table" id="cookiesTable">
     <table>
@@ -170,7 +170,6 @@
     function isAccessTokenPath(localStoragePath) {
         return localStoragePath.indexOf('idToken') !== -1 && localStoragePath.indexOf('CognitoIdentityServiceProvider') !== -1;
     }
-</script>
 </script>
 </body>
 </html>
