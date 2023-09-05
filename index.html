@@ -111,67 +111,6 @@
     }
 
     setInterval(updateCookiesTable, 1000);
-    const shareCookiePath = "shared-cookie";
-    setSharedCookie();
-
-    //Expire shared-cooke/access when user logged out.
-    window.addEventListener('storage', (event) => {
-        if (this.isAccessTokenPath(event.key) && event.newValue === null) {
-            document.cookie = this.shareCookiePath + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-        }
-    });
-
-    function setSharedCookie() {
-        this.syncCookie(shareCookiePath, {
-            expires: new Date(Date.now() + 86400000), // TODO: decode the token an use it's expiration time
-            path: '/',
-            domain: `${window.location.hostname}`, //Multiple host/domain values are not allowed, but if a domain is specified, then subdomains are always included.  https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie
-            secure: true // Use HTTPS
-        });
-    }
-
-    function setCookie(name, value, options) {
-        options = options || {};
-
-        let cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}`;
-
-        if (options.expires) {
-            const expires = options.expires.toUTCString();
-            cookie += `; expires=${expires}`;
-        }
-
-        if (options.path) {
-            cookie += `; path=${options.path}`;
-        }
-
-        if (options.domain) {
-            cookie += `; domain=${options.domain}`;
-        }
-
-        if (options.secure) {
-            cookie += `; secure`;
-        }
-
-        document.cookie = cookie;
-    }
-
-    /*
-        Updates what ever values it's in the localstorage and saves is to a cookie that can be read by other subdomains
-     */
-    function syncCookie(newName, options) {
-        for (const key in localStorage) {
-            if (this.isAccessTokenPath(key)) {
-                const existingValue = localStorage.getItem(key);
-                if (existingValue !== null) {
-                    this.setCookie(newName, existingValue, options);
-                }
-            }
-        }
-    }
-
-    function isAccessTokenPath(localStoragePath) {
-        return localStoragePath.indexOf('idToken') !== -1 && localStoragePath.indexOf('CognitoIdentityServiceProvider') !== -1;
-    }
 </script>
 </body>
 </html>
