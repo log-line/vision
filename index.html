@@ -155,7 +155,9 @@
         document.cookie = cookie;
     }
 
-    //Updates what ever values it's in the localstorage and saves is to a cookie that can be read by other subdomains
+    /*
+        Updates what ever values it's in the localstorage and saves is to a cookie that can be read by other subdomains
+     */
     function syncCookie(newName, options) {
         for (const key in localStorage) {
             if (this.isAccessTokenPath(key)) {
